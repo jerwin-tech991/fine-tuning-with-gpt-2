@@ -5,18 +5,31 @@ import torch
 device = 0 if torch.cuda.is_available() else -1
 print(f"Using device: {'cuda' if device == 0 else 'cpu'}")
 
-checkpoint_path = "./test_trainer/checkpoint-500"
 model_path = "./models/gpt2"
 
 pipe = pipeline(
+    # task="text-generation",
     task="text-classification",
-    model=checkpoint_path,
+    model=model_path,
     tokenizer=model_path,
-    device=device
+    device=device,
 )
 
 input = "I like using JavaScript."
 
+# results = pipe(
+#     input,
+#     max_length=50,      # total tokens including prompt
+#     num_return_sequences=1,
+#     do_sample=True,
+#     temperature=0.7
+# )
+
 result = pipe(input)
+
+# # Print generated text
+# for i, result in enumerate(results):
+#     print(f"=== Generated Text {i+1} ===")
+#     print(result['generated_text'])
 
 print(result)

@@ -30,7 +30,7 @@ while True:
     inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
 
     # Forward pass
-    with torch.no_grad():
+    with torch.no_grad(): # not to compute gradient.
         outputs = model(**inputs)
 
     logits = outputs.logits
